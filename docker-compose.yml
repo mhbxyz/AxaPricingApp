@@ -9,6 +9,12 @@ services:
       - ./backend:/app
     environment:
       - FLASK_ENV=development
+      - UID=1000
+      - GID=1000
+    expose:
+      - "5000"
+    networks:
+      - app-network
 
   frontend:
     build:
@@ -23,5 +29,11 @@ services:
     environment:
       - HOST=0.0.0.0
       - CHOKIDAR_USEPOLLING=true
+      - VITE_API_URL=http://backend:5000
     depends_on:
       - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:

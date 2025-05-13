@@ -12,11 +12,13 @@ import {
   Paper,
 } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Home() {
   const [quotes, setQuotes] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("http://localhost:5000/quotes")
+    fetch(`${API_URL}/quotes`)
       .then((res) => res.json())
       .then(setQuotes);
   }, []);
