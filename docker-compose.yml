@@ -13,11 +13,13 @@ services:
   frontend:
     build:
       context: ./frontend
+    working_dir: /app
     container_name: app_frontend
     ports:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     environment:
       - HOST=0.0.0.0
       - CHOKIDAR_USEPOLLING=true
