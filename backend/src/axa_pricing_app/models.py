@@ -1,5 +1,7 @@
-from axa_pricing_app.app import db
 from datetime import datetime
+
+from axa_pricing_app import db
+
 
 class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)

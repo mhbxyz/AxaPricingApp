@@ -1,11 +1,15 @@
+import os
+
 from flask import Blueprint, request, jsonify, send_file, current_app
-from axa_pricing_app.models import Quote, db
 from datetime import datetime
 from docx import Document
 from weasyprint import HTML
-import os
+
+from axa_pricing_app import db
+from axa_pricing_app.models import Quote
 
 bp = Blueprint('quotes', __name__)
+
 
 @bp.route('/quotes', methods=['GET'])
 def get_quotes():

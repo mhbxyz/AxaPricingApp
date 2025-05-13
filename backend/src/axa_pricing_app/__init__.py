@@ -1,2 +1,3 @@
-def main() -> None:
-    print("Hello from axa-pricing-app!")
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
