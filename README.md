@@ -44,11 +44,18 @@ Une fois démarré :
 
 ### 3. Nettoyage
 
+Avant de relancer les containers, il est impératif de supprimer les dossiers suivants dans le dossier `./backend` :
+
+- `documents/` – contient les fichiers PDF/DOCX générés
+- `instance/` – dossier local de configuration SQLite (lié à Flask)
+
 ~~~
-make down       # Arrête les containers
-make clean      # Supprime les volumes et containers
-make prune      # Nettoyage complet Docker (dangereux)
+make down # or make clean
+rm -rf ./backend/documents ./backend/instance
+make up
 ~~~
+
+> 💡 Ces dossiers sont recréés automatiquement avec les bons droits à chaque `docker-compose up`.
 
 ---
 
