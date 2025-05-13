@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -17,10 +17,11 @@ export default function NewQuote() {
   const [formData, setFormData] = useState({
     opportunity_number: "",
     client_name: "",
-    property_type: "",
-    warranty_type: "",
     destination: "",
+    warranty_type: "",
+    warranty_rate: "",
     work_type: "",
+    cost: "",
   });
 
   const [snackbar, setSnackbar] = useState({
@@ -28,7 +29,18 @@ export default function NewQuote() {
     success: true,
     message: "",
   });
+
   const navigate = useNavigate();
+
+  // Auto-forçage de la garantie si destination = Habitation
+  useEffect(() => {
+    if (formData.destination === "Habitation") {
+      setFormData((prev) => ({
+        ...prev,
+        warranty_type: "DO seule",
+      }));
+    }
+  }, [formData.destination]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,10 +57,17 @@ export default function NewQuote() {
       const res = await fetch(`${API_URL}/quotes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          warranty_rate: parseFloat(formData.warranty_rate),
+          cost: parseFloat(formData.cost),
+        }),
       });
 
-      if (!res.ok) throw new Error("Erreur lors de la création du devis");
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || "Erreur lors de la création du devis");
+      }
 
       setSnackbar({
         open: true,
@@ -93,9 +112,9 @@ export default function NewQuote() {
         />
         <TextField
           select
-          label="Type de bien"
-          name="property_type"
-          value={formData.property_type}
+          label="Destination de l’ouvrage"
+          name="destination"
+          value={formData.destination}
           onChange={handleChange}
           fullWidth
           required
@@ -113,14 +132,16 @@ export default function NewQuote() {
           fullWidth
           required
           margin="normal"
+          disabled={formData.destination === "Habitation"}
         >
           <MenuItem value="DO seule">DO seule</MenuItem>
-          <MenuItem value="DO + TRC">DO + TRC</MenuItem>
+          <MenuItem value="TRC seule">TRC seule</MenuItem>
         </TextField>
         <TextField
-          label="Destination de l’ouvrage"
-          name="destination"
-          value={formData.destination}
+          label="Taux associé à la garantie (%)"
+          name="warranty_rate"
+          type="number"
+          value={formData.warranty_rate}
           onChange={handleChange}
           fullWidth
           required
@@ -137,8 +158,19 @@ export default function NewQuote() {
           margin="normal"
         >
           <MenuItem value="Ouvrage neuf">Ouvrage neuf</MenuItem>
-          <MenuItem value="Rénovation">Rénovation</MenuItem>
+          <MenuItem value="Rénovation légère">Rénovation légère</MenuItem>
+          <MenuItem value="Rénovation lourde">Rénovation lourde</MenuItem>
         </TextField>
+        <TextField
+          label="Coût de l’ouvrage (€)"
+          name="cost"
+          type="number"
+          value={formData.cost}
+          onChange={handleChange}
+          fullWidth
+          required
+          margin="normal"
+        />
 
         <Button
           type="submit"
