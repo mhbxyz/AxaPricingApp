@@ -10,7 +10,7 @@ def create_app():
     CORS(app)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quotes.db'
-    app.config['UPLOAD_FOLDER'] = 'documents'
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, '../../documents')
 
     db.init_app(app)
 

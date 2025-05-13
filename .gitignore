@@ -21,6 +21,7 @@ htmlcov/
 .cache/
 .dmypy.json
 .pyre/
+documents/
 
 # Ignore Flask's debugger pin file
 *.pid

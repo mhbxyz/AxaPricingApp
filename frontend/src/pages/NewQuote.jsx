@@ -7,6 +7,7 @@ import {
   Box,
   Snackbar,
   Alert,
+  MenuItem,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -16,8 +17,10 @@ export default function NewQuote() {
   const [formData, setFormData] = useState({
     opportunity_number: "",
     client_name: "",
-    chiffre_affaires: "",
-    surface: "",
+    property_type: "",
+    warranty_type: "",
+    destination: "",
+    work_type: "",
   });
 
   const [snackbar, setSnackbar] = useState({
@@ -38,20 +41,11 @@ export default function NewQuote() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      opportunity_number: formData.opportunity_number,
-      client_name: formData.client_name,
-      form_data: {
-        chiffre_affaires: Number(formData.chiffre_affaires),
-        surface: Number(formData.surface),
-      },
-    };
-
     try {
       const res = await fetch(`${API_URL}/quotes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) throw new Error("Erreur lors de la création du devis");
@@ -98,25 +92,53 @@ export default function NewQuote() {
           margin="normal"
         />
         <TextField
-          label="Chiffre d'affaires (€)"
-          name="chiffre_affaires"
-          type="number"
-          value={formData.chiffre_affaires}
+          select
+          label="Type de bien"
+          name="property_type"
+          value={formData.property_type}
+          onChange={handleChange}
+          fullWidth
+          required
+          margin="normal"
+        >
+          <MenuItem value="Habitation">Habitation</MenuItem>
+          <MenuItem value="Hors habitation">Hors habitation</MenuItem>
+        </TextField>
+        <TextField
+          select
+          label="Type de garantie"
+          name="warranty_type"
+          value={formData.warranty_type}
+          onChange={handleChange}
+          fullWidth
+          required
+          margin="normal"
+        >
+          <MenuItem value="DO seule">DO seule</MenuItem>
+          <MenuItem value="DO + TRC">DO + TRC</MenuItem>
+        </TextField>
+        <TextField
+          label="Destination de l’ouvrage"
+          name="destination"
+          value={formData.destination}
           onChange={handleChange}
           fullWidth
           required
           margin="normal"
         />
         <TextField
-          label="Surface (m²)"
-          name="surface"
-          type="number"
-          value={formData.surface}
+          select
+          label="Type de travaux"
+          name="work_type"
+          value={formData.work_type}
           onChange={handleChange}
           fullWidth
           required
           margin="normal"
-        />
+        >
+          <MenuItem value="Ouvrage neuf">Ouvrage neuf</MenuItem>
+          <MenuItem value="Rénovation">Rénovation</MenuItem>
+        </TextField>
 
         <Button
           type="submit"

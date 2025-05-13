@@ -47,7 +47,10 @@ export default function Home() {
             <TableRow>
               <TableCell>Opportunité</TableCell>
               <TableCell>Client</TableCell>
-              <TableCell>Tarif</TableCell>
+              <TableCell>Type de bien</TableCell>
+              <TableCell>Garantie</TableCell>
+              <TableCell>Destination</TableCell>
+              <TableCell>Travaux</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Documents</TableCell>
             </TableRow>
@@ -57,18 +60,23 @@ export default function Home() {
               <TableRow key={q.id}>
                 <TableCell>{q.opportunity_number}</TableCell>
                 <TableCell>{q.client_name}</TableCell>
-                <TableCell>{q.form_data?.tarif || "—"}</TableCell>
-                <TableCell>{q.date || "—"}</TableCell>
+                <TableCell>{q.property_type}</TableCell>
+                <TableCell>{q.warranty_type}</TableCell>
+                <TableCell>{q.destination}</TableCell>
+                <TableCell>{q.work_type}</TableCell>
+                <TableCell>
+                  {new Date(q.created_at).toLocaleDateString()}
+                </TableCell>
                 <TableCell>
                   <a
-                    href={`http://localhost:5000/quotes/${q.id}/document?type=pdf`}
+                    href={`${API_URL}/quotes/${q.id}/document?type=pdf`}
                     target="_blank"
                   >
                     PDF
                   </a>{" "}
                   |{" "}
                   <a
-                    href={`http://localhost:5000/quotes/${q.id}/document?type=docx`}
+                    href={`${API_URL}/quotes/${q.id}/document?type=docx`}
                     target="_blank"
                   >
                     DOCX
