@@ -1,0 +1,23 @@
+[project]
+name = "axa-pricing-app"
+version = "0.1.0"
+description = "Application de Tarification IARD."
+readme = "README.md"
+authors = [{ name = "Manoah Bernier", email = "manoah.bernier@pm.me" }]
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.0",
+    "flask-cors>=5.0.1",
+    "flask-sqlalchemy>=3.1.1",
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
+    "python-docx>=1.1.2",
+    "weasyprint>=65.1",
+]
+
+[project.scripts]
+axa-pricing-app = "axa_pricing_app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

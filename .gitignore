@@ -1,0 +1,84 @@
+# === PYTHON (Flask backend) ===
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+env/
+venv/
+ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+*.sqlite3
+instance/
+.mypy_cache/
+.pytest_cache/
+coverage.*
+htmlcov/
+.tox/
+.cache/
+.dmypy.json
+.pyre/
+
+# Ignore Flask's debugger pin file
+*.pid
+
+# === Node.js (React frontend) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# production build
+/build
+/dist
+
+# React
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# === General ===
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.swp
+*.swo
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# === Optional: Docker and virtualbox ===
+*.pid
+*.seed
+*.pid.lock
+*.tar
+*.tar.gz
+*.box
+
+# === Optional: PyCharm related ===
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# === Optional: Environment variables ===
+.env
+.env.*
+
+# === Optional: Testing ===
+.coverage
+nosetests.xml
+test-results/
+junit.xml
